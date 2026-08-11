@@ -1,6 +1,6 @@
 // game variables
-let p1Pos = 1;
-let p2Pos = 1;
+let p1Pos = 0;
+let p2Pos = 0;
 let currentTurn = 1; 
 const end = 100;
 
@@ -17,12 +17,12 @@ const snakes = {
     73: 1, 83: 19, 92: 51, 95: 24, 98: 28
 };
 
-// get random number between 1 and 6
+// generate random dice roll
 function rollDice() {
     return Math.floor(Math.random() * 6) + 1;
 }
 
-// update ui for active player
+// update active player ui
 function updateActivePlayerUI() {
     let p1Card = document.getElementById("p1-card");
     let p2Card = document.getElementById("p2-card");
@@ -31,31 +31,33 @@ function updateActivePlayerUI() {
     if (currentTurn === 1) {
         p1Card.classList.add("active-player");
         p2Card.classList.remove("active-player");
-        turnMsg.innerText = "Player 1, it's your turn!";
+        turnMsg.innerText = "Player 1, your turn!";
     } else {
         p2Card.classList.add("active-player");
         p1Card.classList.remove("active-player");
-        turnMsg.innerText = "Player 2, it's your turn!";
+        turnMsg.innerText = "Player 2, your turn!";
     }
 }
 
-// process the turn logic
+// execute turn logic
 function playTurn() {
     let dice = rollDice();
     let actionMsg = document.getElementById("action-message");
-    let msg = `Rolled a ${dice}. `;
+    let msg = "Rolled " + dice + ". ";
     
     if (currentTurn === 1) {
-        p1Pos += dice;
-        
-        // check limits and obstacles
-        if (p1Pos > end) p1Pos = end;
-        if (ladders[p1Pos]) {
-            p1Pos = ladders[p1Pos];
-            msg += "Climbed a ladder! ";
-        } else if (snakes[p1Pos]) {
-            p1Pos = snakes[p1Pos];
-            msg += "Bitten by a snake! ";
+        // enforce exact roll to win
+        if (p1Pos + dice <= end) {
+            p1Pos += dice;
+            if (ladders[p1Pos]) {
+                p1Pos = ladders[p1Pos];
+                msg += "Ladder! ";
+            } else if (snakes[p1Pos]) {
+                p1Pos = snakes[p1Pos];
+                msg += "Snake! ";
+            }
+        } else {
+            msg += "Need exactly " + (end - p1Pos) + " to win. ";
         }
         
         document.getElementById("p1-pos").innerText = p1Pos;
@@ -67,16 +69,18 @@ function playTurn() {
         
         currentTurn = 2;
     } else {
-        p2Pos += dice;
-        
-        // check limits and obstacles
-        if (p2Pos > end) p2Pos = end;
-        if (ladders[p2Pos]) {
-            p2Pos = ladders[p2Pos];
-            msg += "Climbed a ladder! ";
-        } else if (snakes[p2Pos]) {
-            p2Pos = snakes[p2Pos];
-            msg += "Bitten by a snake! ";
+        // enforce exact roll to win
+        if (p2Pos + dice <= end) {
+            p2Pos += dice;
+            if (ladders[p2Pos]) {
+                p2Pos = ladders[p2Pos];
+                msg += "Ladder! ";
+            } else if (snakes[p2Pos]) {
+                p2Pos = snakes[p2Pos];
+                msg += "Snake! ";
+            }
+        } else {
+            msg += "Need exactly " + (end - p2Pos) + " to win. ";
         }
         
         document.getElementById("p2-pos").innerText = p2Pos;
@@ -93,17 +97,17 @@ function playTurn() {
     updateActivePlayerUI();
 }
 
-// handle win condition
+// handle winner
 function endGame(winner) {
-    document.getElementById("turn-message").innerText = `${winner} Wins!`;
+    document.getElementById("turn-message").innerText = winner + " Wins!";
     document.getElementById("action-message").innerText = "Game Over!";
     document.getElementById("roll-btn").style.display = "none";
 }
 
-// reset variables and ui
+// reset board
 function resetGame() {
-    p1Pos = 1;
-    p2Pos = 1;
+    p1Pos = 0;
+    p2Pos = 0;
     currentTurn = 1;
     
     document.getElementById("p1-pos").innerText = p1Pos;

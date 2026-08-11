@@ -11,7 +11,7 @@ def roll_dice():
 
 # function for showing board image
 def show_board():
-    img = Image.open("C:/Users/saisu/Downloads/SnakesAndLadderBoard.jpeg")
+    img = Image.open("SnakesAndLadderBoard.jpeg")
     img.show()
 
 # if player gets ladder on their current position it shall allow them to climb the ladder and reach the updated position
