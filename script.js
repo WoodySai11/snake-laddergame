@@ -26,7 +26,7 @@ function rollDice() {
 function updateActivePlayerUI() {
     let p1Card = document.getElementById("p1-card");
     let p2Card = document.getElementById("p2-card");
-    let turnMsg = document.getElementById("turn-message"); 
+    let turnMsg = document.getElementById("turn-message");
 
     if (currentTurn === 1) {
         p1Card.classList.add("active-player");
