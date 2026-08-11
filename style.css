@@ -1,3 +1,13 @@
+body {
+    background-color: #87CEEB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0; /* Removes default browser margins */
+    padding: 20px;
+}
+
 /* main container layout */
 .game-container {
     background-color: #ffffff;
@@ -11,121 +21,5 @@
     width: 95%;
     max-width: 1000px;
     box-shadow: 10px 10px 0px #32CD32;
-}
-
-/* left side image wrapper */
-.image-section {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* strict image constraints */
-.image-section img {
-    width: 100%;
-    max-width: 450px;
-    height: auto;
-    border: 5px solid #333;
-    border-radius: 15px;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
-}
-
-/* right side logic wrapper */
-.logic-section {
-    flex: 1;
-    text-align: center;
-    width: 100%;
-}
-
-.title {
-    color: #FF4500;
-    font-size: 36px;
-    text-transform: uppercase;
-    text-shadow: 2px 2px #FFD700;
-    margin-bottom: 20px;
-}
-
-.status-board {
-    background-color: #FFD700;
-    border: 5px solid #FFA500;
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-#turn-message {
-    color: #000080;
-    margin-bottom: 10px;
-}
-
-#action-message {
-    font-size: 18px;
-    font-weight: bold;
-    color: #FF0000;
-    margin-bottom: 20px;
-    min-height: 25px;
-}
-
-.scores {
-    display: flex;
-    justify-content: space-around;
-}
-
-.player-card {
-    background-color: #F0F8FF;
-    border: 4px solid #4682B4;
-    border-radius: 10px;
-    padding: 15px;
-    width: 45%;
-    transition: transform 0.2s;
-}
-
-.active-player {
-    transform: scale(1.1);
-    border-color: #32CD32;
-    background-color: #E0FFFF;
-}
-
-.position {
-    font-size: 32px;
-    font-weight: bold;
-    color: #4682B4;
-    margin-top: 10px;
-}
-
-.controls {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.btn {
-    border: none;
-    padding: 15px;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 10px;
-    cursor: pointer;
-    text-transform: uppercase;
-}
-
-.primary {
-    background-color: #32CD32;
-    color: white;
-    border-bottom: 5px solid #228B22;
-}
-
-.secondary {
-    background-color: #FF6347;
-    color: white;
-    border-bottom: 5px solid #DC143C;
-}
-
-/* mobile responsive layout */
-@media (max-width: 850px) {
-    .game-container {
-        flex-direction: column;
-        padding: 20px;
-    }
+    margin: 0 auto; /* Forces the container to center itself horizontally */
 }
