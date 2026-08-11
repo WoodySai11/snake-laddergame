@@ -1,8 +1,8 @@
 from PIL import Image
 import random
 
-# global variables (only constants - no global keyword needed)
-start = 1
+# global variables
+start = 0
 end = 100
 
 # function for rolling dice
@@ -94,36 +94,34 @@ def reached_end(pos):
     else:
         return False
  
-# function for player 1  (NO turn message here anymore)
+# function for player 1
 def player_1(pos, player_name):
-    # roll dice ONCE only
     dice = roll_dice()
     print("Dice rolled", dice)
-    pos += dice
  
-    # check if the current position is of snake or ladder
-    pos = ladder(pos)
-    pos = snake(pos)
- 
-    if pos > end:
-        pos = end
+    # only move if the roll does not exceed 100
+    if pos + dice <= end:
+        pos += dice
+        pos = ladder(pos)
+        pos = snake(pos)
+    else:
+        print("Roll exceeds 100. You must roll exactly", end - pos, "to win.")
  
     print(player_name, "your score is : ", pos)
     return pos
 
-# function for player 2  (NO turn message here anymore)
+# function for player 2
 def player_2(pos, player_name):
-    # roll dice ONCE only
     dice = roll_dice()
     print("Dice rolled", dice)
-    pos += dice
  
-    # check if the current position is of snake or ladder
-    pos = ladder(pos)
-    pos = snake(pos)
- 
-    if pos > end:
-        pos = end
+    # only move if the roll does not exceed 100
+    if pos + dice <= end:
+        pos += dice
+        pos = ladder(pos)
+        pos = snake(pos)
+    else:
+        print("Roll exceeds 100. You must roll exactly", end - pos, "to win.")
  
     print(player_name, "your score is : ", pos)
     return pos
@@ -138,9 +136,8 @@ def playgame():
     turn = 0
  
     while(True):
-     
         if turn%2==0:
-            print(p1, "it's your turn.")                    # ← added exactly like reference
+            print(p1, "it's your turn.")
             choice = input("1 : Go | 2 : Current Positions | 3 : Quit\n Enter your Choice : ")
             if choice == "3":
                 print(p1," points :", pos1)
@@ -156,9 +153,12 @@ def playgame():
                 if reached_end(pos1):
                     print(p1,"won")
                     break
+            else:
+                print("Invalid choice. Try again.")
+                continue
       
         else:
-            print(p2, "it's your turn.")                    # ← added exactly like reference
+            print(p2, "it's your turn.")
             choice = input("1 : Go | 2 : Current Positions | 3 : Quit\n Enter your Choice : ")
             if choice == "3":
                 print(p1," points :", pos1)
@@ -174,9 +174,11 @@ def playgame():
                 if reached_end(pos2):
                     print(p2,"won")
                     break
+            else:
+                print("Invalid choice. Try again.")
+                continue
           
         turn = turn + 1
- 
  
 # calling functions
 show_board()
